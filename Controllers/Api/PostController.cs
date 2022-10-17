@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NetCore.Controllers.Api
 {
+    //api/post
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class PostController : ControllerBase
@@ -17,12 +18,35 @@ namespace NetCore.Controllers.Api
         {
             _ctx = new BlogContext();
         }
-        public IActionResult Get()
+
+        
+        //api/post/get/[qualunque stringa]
+        [HttpGet]
+        public IActionResult Get(string? title)
         {
+            IQueryable<Post> posts;
 
-            List<Post> posts = _ctx.Posts.ToList();
+            if(title != null){
+                posts = _ctx.Posts.Where(post => post.Title.ToLower().Contains(title.ToLower()));
+            }
+            else
+            {
+                posts = _ctx.Posts;
+            }
 
-            return NotFound(new { Message = "Oggetto non trovato"});
+            return Ok(posts.ToList<Post>());
         }
+
+       
+        //api/post/get/[qualqune numero]
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            Post post = _ctx.Posts.Where(p => p.Id == id).FirstOrDefault();
+
+            return Ok(post);
+        }
+
+       
     }
 }
