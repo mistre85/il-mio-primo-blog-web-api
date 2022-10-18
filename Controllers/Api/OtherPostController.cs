@@ -9,23 +9,21 @@ namespace NetCore.Controllers.Api
     //api/post
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class OtherPostController : ControllerBase
     {
 
         BlogContext _ctx;
 
-        public PostController()
+        public OtherPostController()
         {
             _ctx = new BlogContext();
         }
 
 
-        //url query param
-        //il parametro quindi dovrà essere
-        //api/post/get/?title=[qualunque stringa]
-        //api/post/get --> title è null e quindi ... (vedere codice sotto).
+        //api/otherpost/getallpost/[qualunque stringa]
+        [Route("get/all")]
         [HttpGet]
-        public IActionResult Get(string? title)
+        public IActionResult GetAllPost(string? title)
         {
             IQueryable<Post> posts;
 
@@ -41,17 +39,17 @@ namespace NetCore.Controllers.Api
             return Ok(posts.ToList<Post>());
         }
 
-        //url param devono combaciare i nomi di {nomeparametro} con i parametri della action
-        //e non ha nulla a che fare con il porgram
-        //api/post/get/[qualqune numero]
-        [HttpGet("{identification}")]
-        public IActionResult Get(int identification)
+
+        //api/otherpost/getpostdetail/[qualqune numero]
+        [Route("get/detail")]
+        [HttpGet("{id}")]
+        public IActionResult GetPostDetail(int id)
         {
-            Post post = _ctx.Posts.Where(p => p.Id == identification).FirstOrDefault();
+            Post post = _ctx.Posts.Where(p => p.Id == id).FirstOrDefault();
 
             return Ok(post);
         }
 
-
+       
     }
 }

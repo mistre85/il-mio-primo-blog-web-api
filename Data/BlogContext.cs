@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using NetCore.Models;
+using NetCore_01.Models;
 using System;
 
 namespace NetCore.Data
@@ -28,5 +29,7 @@ namespace NetCore.Data
         public DbSet<Category> Categories { get; set; }
 
         public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
     }
 }

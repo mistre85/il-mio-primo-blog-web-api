@@ -9,7 +9,14 @@ namespace NetCore.Controllers
             return View();
         }
 
+        //url param di default a casua di program.cs
         public IActionResult Details(int id)
+        {
+            //ViewData["pizzaId"] = id;
+            return View();
+        }
+
+        public IActionResult Contact()
         {
             return View();
         }

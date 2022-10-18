@@ -1,4 +1,6 @@
-﻿<h1>Dettaglio post</h1>
+﻿@model int
+
+<h1>Dettaglio post</h1>
 
 
 <div class="container">
@@ -8,13 +10,17 @@
             </div>
         </div>
     </div>
+
 </div>
 
 
 <script type="text/javascript">
 
-    debugger;
-    let id = window.location.pathname.split('/')[3];
+  
+    //let id = window.location.pathname.split('/')[3]; //versione js
+    //let id = @*ViewData["pizzaId"];*@ //versione viewdata
+
+    let id = @Model;
   
     axios.get('/api/post/get/' + id).then(res=>{
 
